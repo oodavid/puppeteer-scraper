@@ -1,0 +1,23 @@
+{
+  "name": "puppeteer-scraper",
+  "version": "1.0.0",
+  "description": "A Better Scraper, with Puppeteer ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David 'oodavid' King",
+  "license": "ISC",
+  "keywords": [
+    "Puppeteer",
+    "Chrome",
+    "Headless",
+    "Scrapping",
+    "Node",
+    "Distributed",
+    "Proxy",
+    "Proxies",
+    "Throttle",
+    "Throttling"
+  ]
+}
