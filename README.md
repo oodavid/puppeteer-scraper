@@ -17,6 +17,7 @@ Now we will scale this idea up by:
     * [ ] Prevent working at cross purposes
     * [ ] Track name and IP
     * [ ] Optional authentication
+* [ ] Users can select which domain to scrape
 * [ ] Users can control how many threads they run
     * [ ] Keyboard control
 * [ ] Can use proxies
