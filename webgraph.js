@@ -1,10 +1,5 @@
-const puppeteer = require('puppeteer');
+const browserPool = require('./browserPool.js');
 const sanitize = require("sanitize-filename");
-
-let puppets = {
-  running: 0,
-  max: 2,
-};
 
 let unscraped = [
   'https://oodavid.com',
@@ -16,36 +11,39 @@ let unscraped = [
   'https://oodavid.com/article/style-rendering-test/',
 ];
 
-spawnPuppets();
+spawnBrowsers();
 
-function spawnPuppets(){
-  for(var p=puppets.running; p<puppets.max; p++){
+function spawnBrowsers(){
+  let numSpawned = 0;
+  for(var b=0; b<=browserPool.getIdleCount(); b++){
     const url = getUnscrapedUrl();
     if(url){
-      spawnPuppet(url);
+      spawnBrowser(url);
+      numSpawned++;
     }
+  }
+  if(!numSpawned){
+    console.log('nothing to do (start exponential backoff)');
   }
 };
 
-async function spawnPuppet(url){
+async function spawnBrowser(url){
   console.log('parsing', url);
-  puppets.running ++;
+  let browser;
   try {
-    const browser = await puppeteer.launch();
+    browser = await browserPool.getBrowser();
     const page = await browser.newPage();
     await page.goto(url);
     // Analysis
     const filename = sanitize(url);
     await page.screenshot({ path: `screenshots/${filename}.png` });
     const html = await page.content();
-    // End Analysis
-    await browser.close();
-    puppets.running --;
-    spawnPuppets();
   } catch(e) {
     console.error(e);
-    puppets.running --;
   }
+  // Always release the browser
+  await browserPool.releaseBrowser(browser);
+  spawnBrowsers();
 }
 
 function getUnscrapedUrl(){
