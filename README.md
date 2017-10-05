@@ -1,4 +1,4 @@
-# A Better Scraper, with Puppeteer 
+# A Better Scraper, with Puppeteer
 
 Firstly, go forth and read [Getting started with Puppeteer and Chrome Headless for Web Scraping](https://medium.com/@e_mad_ehsan/getting-started-with-puppeteer-and-chrome-headless-for-web-scrapping-6bf5979dee3e).
 
@@ -18,8 +18,8 @@ Now we will scale this idea up by:
     * [ ] Track name and IP
     * [ ] Optional authentication
 * [ ] Users can select which domain to scrape
-* [ ] Users can control how many threads they run
-    * [ ] Keyboard control
+* [x] Users can control how many threads they run
+    * [x] Keyboard control
 * [ ] Can use proxies
 * [ ] Has IP throttling
 

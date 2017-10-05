@@ -21,6 +21,7 @@
     "Throttling"
   ],
   "dependencies": {
+    "keypress": "^0.2.1",
     "puppeteer": "^0.11.0",
     "sanitize-filename": "^1.6.1"
   }

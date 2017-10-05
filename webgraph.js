@@ -1,5 +1,6 @@
 const browserPool = require('./browserPool.js');
 const sanitize = require("sanitize-filename");
+require('./keyboard.js');
 
 let unscraped = [
   'https://oodavid.com',
@@ -11,6 +12,7 @@ let unscraped = [
   'https://oodavid.com/article/style-rendering-test/',
 ];
 
+browserPool.setPoolSize(2);
 spawnBrowsers();
 
 function spawnBrowsers(){
