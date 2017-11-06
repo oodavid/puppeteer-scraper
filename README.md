@@ -1,3 +1,26 @@
+
+
+Rough Todo
+  Create a `console` utility
+
+Read these
+  https://www.google.com/intl/bn/insidesearch/howsearchworks/crawling-indexing.html
+  https://hexfox.com/p/scrapy-vs-beautifulsoup/
+  https://hexfox.com/p/how-to-filter-out-duplicate-urls-from-scrapys-start-urls/
+
+Bonus - Create an executable
+  https://github.com/zeit/pkg
+
+Other course ideas
+  Learn CSS by creating a framework
+  SASS
+  MongoDb
+  CouchDb
+  DropKick (Chrome extension)
+  Gulp Build System
+
+
+
 # A Better Scraper, with Puppeteer
 
 Firstly, go forth and read [Getting started with Puppeteer and Chrome Headless for Web Scraping](https://medium.com/@e_mad_ehsan/getting-started-with-puppeteer-and-chrome-headless-for-web-scrapping-6bf5979dee3e).
