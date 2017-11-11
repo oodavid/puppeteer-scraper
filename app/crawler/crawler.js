@@ -1,4 +1,4 @@
-const browserPool = require('./browserPool.js');
+const browserPool = require('./browserPool/');
 const sanitize = require("sanitize-filename");
 require('./keyboard.js');
 
@@ -38,7 +38,7 @@ async function spawnBrowser(url){
     await page.goto(url);
     // Analysis
     const filename = sanitize(url);
-    await page.screenshot({ path: `screenshots/${filename}.png` });
+    await page.screenshot({ path: `${__dirname}/../../images/${filename}.png` });
     const html = await page.content();
   } catch(e) {
     console.error(e);

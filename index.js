@@ -1,32 +1,24 @@
+const messages = require('./app/messages/');
 const args = require('./app/args/');
 const mysql = require('./app/mysql/');
 
 
 (async () => {
 
-  dumpMessage(`
-∇   ____   ∇
-| :      : |  ·---------------------------- - -
-{| ♥    ♥ |}  | Web Scraper; Crawler and Parser
- |___==___|   |                    oodavid 2017
-/          \\  ·---------------------------- - -
-`);
-
-  const database = await mysql.getConnection();
+  messages.printIntro();
+  await mysql.init();
   const action = await args.getAction();
   const domain = await args.getDomain();
-  args.printCommand(action, domain);
+
+  messages.printMessage('Running scraper with command:', `node index.js --action ${action} --domain ${domain}`);
+
+  // Read the config file
+  // upsert the seed URLs
+  // Start scraping
+
 
   console.log(action);
   console.log(domain);
-  console.log(database);
 
+  process.exit();
 })();
-
-
-function dumpMessage(msg){
-  var red = '\033[0;31m';
-  var norm = '\033[0m';
-  msg = msg.replace(/([∇♥])/g, `${red}$1${norm}`)
-  console.log(msg);
-}

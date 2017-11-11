@@ -1,4 +1,4 @@
-exports.getDomain = getDomain;
+module.exports = getDomain;
 
 
 const argv = require('yargs').argv;

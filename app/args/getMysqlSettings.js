@@ -1,10 +1,10 @@
-exports.getSettings = getSettings;
-
+module.exports = getMysqlSettings;
 
 const inquirer = require('inquirer');
 const fs = require('fs');
 const util = require('util');
 const writeFile = util.promisify(fs.writeFile);
+const messages = require('../messages/');
 
 
 const credsFilePath = `${__dirname}/../../creds.json`;
@@ -19,13 +19,13 @@ const allPrompts = [
     type: 'input',
     name: 'user',
     message: 'Enter user',
-    default: 'user'
+    default: 'charlotte'
   },
   {
-    type: 'input',
+    type: 'password',
     name: 'password',
     message: 'Enter password',
-    default: 'secret'
+    default: 'Wilbur'
   },
   {
     type: 'input',
@@ -33,13 +33,26 @@ const allPrompts = [
     message: 'Enter database',
     default: 'scraper'
   },
+  {
+    type: 'input',
+    name: 'connectionLimit',
+    message: 'Connection Limit',
+    default: 20,
+    filter: function(value){
+      return parseInt(value, 10);
+    },
+    validate: function(value){
+      var isValid = (value > 0 && value === parseInt(value, 10));
+      return isValid || "Please enter an integer";
+    }
+  }
 ];
 
 
 let creds;
 
 
-async function getSettings(){
+async function getMysqlSettings(){
   // From memory
   if(creds && creds.mysql){
     return creds.mysql;
@@ -59,7 +72,7 @@ async function getSettings(){
     return creds.mysql;
   }
   // Prompt
-  showPromptMessage();
+  messages.printMessage('Please configure MySQL', '...you only need to do this once :)');
   var answers = await inquirer.prompt(prompts)
     .then(function(answers){
       return answers;
@@ -70,30 +83,7 @@ async function getSettings(){
   Object.assign(creds.mysql, answers);
   // Write the file
   await writeFile(credsFilePath, JSON.stringify(creds, null, 4));
-  showWriteMessage();
+  messages.printMessage('Saved to creds.json');
   // Return
   return creds.mysql;
-}
-
-
-function showPromptMessage(){
-  var cyan = '\033[0;36m';
-  var norm = '\033[0m';
-  console.log(`
-·------------------------------------------ - -
-| ${cyan}Please configure MySQL${norm}
-| ...you only need to do this once :)
-·------------------------------------------ - -
-`);
-}
-
-
-function showWriteMessage(){
-  var cyan = '\033[0;36m';
-  var norm = '\033[0m';
-  console.log(`
-·------------------------------------------ - -
-| ${cyan}Saved to creds.json${norm}
-·------------------------------------------ - -
-`);
 }

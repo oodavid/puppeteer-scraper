@@ -1,5 +1,5 @@
 const keypress = require('keypress');
-const browserPool = require('./browserPool.js');
+const browserPool = require('./browserPool/');
 
 // Force `process.stdin` to emit `keypress` (and `mousepress`) events
 keypress(process.stdin);
@@ -22,3 +22,9 @@ process.stdin.setRawMode(true);
 process.stdin.resume();
 
 console.log('Use [UP] and [DOWN] to change horsepower');
+
+/*
+  UP = Increase browsers
+  DOWN = Decrease browsers
+  P = Pause / Unpause - toggles browsersPool to `0`
+*/

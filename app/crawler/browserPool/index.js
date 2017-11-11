@@ -1,3 +1,11 @@
+// USE BLUEBIRD POOLS!!
+//  http://bluebirdjs.com/docs/api/promise.using.html
+//  https://www.npmjs.com/package/promise-mysql#usingdisposer-pattern-with-pool
+
+
+// SPLIT OUT LOGIC (if sensible)
+
+
 exports.setPoolSize = setPoolSize;
 exports.adjustPoolSize = adjustPoolSize;
 exports.getIdleCount = getIdleCount;

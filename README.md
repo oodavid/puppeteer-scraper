@@ -1,25 +1,35 @@
 
 
 Rough Todo
-  Create a `console` utility
 
-Read these
-  https://www.google.com/intl/bn/insidesearch/howsearchworks/crawling-indexing.html
-  https://hexfox.com/p/scrapy-vs-beautifulsoup/
-  https://hexfox.com/p/how-to-filter-out-duplicate-urls-from-scrapys-start-urls/
+* [ ] `app/mysql/index.js`
+    * [ ] Connect
+    * [ ] Dump useful error if we can't connect
+    * [ ] Return some mysql interface (3rd party)
+* [ ] `app/crawler/index.js`
+    * [ ] `init(browser)`
+* [ ] `app/crawler/keyboard.js`
+    * [ ] `init()`
+    * [ ] Handle `[P]` for Pause / Unpause
+    * [ ] Consume `/app/messages/`
+* [ ] Bonus - Create an executable - https://github.com/zeit/pkg
 
-Bonus - Create an executable
-  https://github.com/zeit/pkg
+Read these for reference and notes
+
+* https://www.google.com/intl/bn/insidesearch/howsearchworks/crawling-indexing.html
+* https://hexfox.com/p/scrapy-vs-beautifulsoup/
+* https://hexfox.com/p/how-to-filter-out-duplicate-urls-from-scrapys-start-urls/
+* https://stackoverflow.com/a/9736414/1122851 - database pools (and pools in general)
 
 Other course ideas
-  Learn CSS by creating a framework
-  SASS
-  MongoDb
-  CouchDb
-  DropKick (Chrome extension)
-  Gulp Build System
 
-
+* Learn CSS by creating a framework
+* SASS
+* MongoDb
+* CouchDb
+* DropKick (Chrome extension)
+* Gulp Build System
+* Exercise App
 
 # A Better Scraper, with Puppeteer
 

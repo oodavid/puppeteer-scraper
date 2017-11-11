@@ -1,4 +1,4 @@
-exports.getAction = getAction;
+module.exports = getAction;
 
 
 const argv = require('yargs').argv;
