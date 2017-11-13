@@ -1,4 +1,4 @@
-exports.extractLinks = extractLinks;
+module.exports.extractLinks = extractLinks;
 
 
 function extractLinks(url, puppeteerPage){

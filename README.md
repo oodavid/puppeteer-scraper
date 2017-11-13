@@ -2,20 +2,31 @@
 
 Rough Todo
 
-* [ ] `app/mysql/index.js`
-    * [ ] Connect
-    * [ ] Dump useful error if we can't connect
-    * [ ] Return some mysql interface (3rd party)
+When doing "from memory" it really should be "existing promise" for multithreading
+
+Always use `module.exports`, not `exports`
+
+* [x] `app/mysql/index.js`
+    * [x] Pool, Connect, Query
+    * [x] Return some mysql interface (3rd party)
+    * [ ] BONUS - Dump useful error if we can't connect
 * [ ] `app/crawler/index.js`
     * [ ] `init(browser)`
-* [ ] `app/crawler/keyboard.js`
-    * [ ] `init()`
-    * [ ] Handle `[P]` for Pause / Unpause
+* [x] `app/crawler/keyboard.js`
+    * [x] `init()`
+    * [x] Handle `[P]` for Pause / Unpause
     * [ ] Consume `/app/messages/`
+* [ ] Hash MD5 logic
+    * [ ] BONUS - Consider adding this to the domain settings (it may want to exclude non-content html)
 * [ ] Bonus - Create an executable - https://github.com/zeit/pkg
+* [ ] Consider using `scrapy style pipelines` - https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 Read these for reference and notes
 
+* Turbocharge the data with:
+    * https://www.integrationsjs.com/
+    * https://open.blockspring.com/browse
+    * https://www.blockspring.com/
 * https://www.google.com/intl/bn/insidesearch/howsearchworks/crawling-indexing.html
 * https://hexfox.com/p/scrapy-vs-beautifulsoup/
 * https://hexfox.com/p/how-to-filter-out-duplicate-urls-from-scrapys-start-urls/

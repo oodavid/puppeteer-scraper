@@ -1,12 +1,16 @@
-exports.host = 'www.checkatrade.com';
-exports.getSeedUrls = getSeedUrls;
+exports.domain = 'oodavid.com';
+exports.seedUrls = getSeedUrls();
 exports.getUrlWeight = getUrlWeight;
 exports.parseForData = parseForData;
-exports.throttle = 0; // MS between requests
+exports.throttle = 0;
 
 // Return an array of initial Urls to parse
 function getSeedUrls(){
-    return [ '/' ];
+  return [
+    'https://oodavid.com',
+    'https://oodavid.com/todo/',
+    'https://oodavid.com/about-me/',
+  ];
 };
 
 // Return the "weight" of an URL from 0-1.

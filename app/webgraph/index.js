@@ -1,5 +1,5 @@
-exports.upsertUrls = require('./upsertUrls.js');
-exports.getUnscrapedUrls = require('./getUnscrapedUrls.js');
+exports.upsertSeedUrls = require('./upsertSeedUrls.js');
+exports.getUncrawledUrl = require('./getUncrawledUrl.js');
 
 
 /*

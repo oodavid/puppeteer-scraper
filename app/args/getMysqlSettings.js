@@ -37,7 +37,7 @@ const allPrompts = [
     type: 'input',
     name: 'connectionLimit',
     message: 'Connection Limit',
-    default: 20,
+    default: 10,
     filter: function(value){
       return parseInt(value, 10);
     },

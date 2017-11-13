@@ -1,4 +1,5 @@
-MySQL (localhost) installation
+## MySQL (localhost) installation
+
   1 - Go here
     https://dev.mysql.com/downloads/mysql/
   ...
@@ -9,14 +10,23 @@ MySQL (localhost) installation
   n - Test it is running with
     `mysqladmin -u root version`
 
-Creating our database
+### Automatically Starting
+
+MySQL will automatically start.
+
+You can access the server (on OSX) via **System Preferences**.
+
+https://dev.mysql.com/doc/refman/5.7/en/osx-installation-launchd.html
+
+## Create our user
 
 ```
-mysql -u root
+mysql -u root -p
 ---
 CREATE DATABASE scraper;
 CREATE USER 'charlotte'@'localhost' IDENTIFIED BY 'Wilbur';
-GRANT ALL PRIVILEGES ON scraper.* TO 'charlotte'@'localhost' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON scraper.* TO 'charlotte'@'localhost';
+FLUSH PRIVILEGES;
 exit
 --
 mysql -u charlotte -p -D scraper
@@ -24,7 +34,8 @@ SELECT DATABASE();
 exit
 ```
 
-Workbench installation
+## Workbench installation
+
   1 - Go here
     https://www.mysql.com/products/workbench/
   2 - Then here
@@ -32,3 +43,10 @@ Workbench installation
     Select OS and click download
   3 - No need to register;
     No thanks, just start my download.
+
+Exporting our EER Diagram `File > Export > Forward Engineer SQL CREATE Script`
+
+
+## Create our database
+
+mysql -u charlotte -p scraper < ./scraper.sql

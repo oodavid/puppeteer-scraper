@@ -7,8 +7,8 @@ var webgraphDb = nano.db.use('webgraph');
 Promise.promisifyAll(webgraphDb);
 
 
-exports.getUnscrapedUrls = getUnscrapedUrls;
-exports.setScrapeData = setScrapeData;
+module.exports.getUnscrapedUrls = getUnscrapedUrls;
+module.exports.setScrapeData = setScrapeData;
 
 
 // Promise to return `num` URLs
