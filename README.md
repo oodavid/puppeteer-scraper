@@ -12,14 +12,22 @@ Always use `module.exports`, not `exports`
     * [ ] BONUS - Dump useful error if we can't connect
 * [ ] `app/crawler/index.js`
     * [ ] `init(browser)`
-* [x] `app/crawler/keyboard.js`
-    * [x] `init()`
-    * [x] Handle `[P]` for Pause / Unpause
-    * [ ] Consume `/app/messages/`
+* [x] Create a HUD
+    * [x] Use https://github.com/cronvel/terminal-kit
+    * [x] initialize - reserve space for the hud
+    * [x] title - set title in terminal and HUD
+    * [x] keyboard - handle `n` keyboard callbacks, render them on HUD
+    * [x] progress - show the overall progress
+    * [x] urlState - show the running threads (might rename)
+    * [x] message - render short message on HUD
+    * [x] error - for handling errors - write to file, render short message on HUD
 * [ ] Hash MD5 logic
     * [ ] BONUS - Consider adding this to the domain settings (it may want to exclude non-content html)
 * [ ] Bonus - Create an executable - https://github.com/zeit/pkg
 * [ ] Consider using `scrapy style pipelines` - https://doc.scrapy.org/en/latest/topics/item-pipeline.html
+
+
+# Reading List
 
 Read these for reference and notes
 
