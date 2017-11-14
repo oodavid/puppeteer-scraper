@@ -14,7 +14,7 @@ function progress(completed, total){
   var left = Array(Math.round(len*pct)).join('=');
   var right = Array(1+len-Math.round(len*pct)).join('-');
   // The string
-  var str = `Nodes [^g${left}^:${right}] ${pctStr}% [^g${completed.toLocaleString()}^: / ${total.toLocaleString()}]`;
+  var str = `Progress [^g${left}^:${right}] ${pctStr}% [^g${completed.toLocaleString()}^: / ${total.toLocaleString()}]`;
   // Output
   initOnce();
   term.restoreCursor();

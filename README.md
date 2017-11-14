@@ -42,6 +42,8 @@ Read these for reference and notes
 
 Other course ideas
 
+* Massively Multiplayer Online Scrabble / Upwords
+* Games > Grid
 * Learn CSS by creating a framework
 * SASS
 * MongoDb
