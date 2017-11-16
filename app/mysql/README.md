@@ -50,3 +50,20 @@ Exporting our EER Diagram `File > Export > Forward Engineer SQL CREATE Script`
 ## Create our database
 
 mysql -u charlotte -p scraper < ./scraper.sql
+
+
+# Useful statements
+
+```mysql
+-- Recently updated URLs
+SELECT id, domain, url, status, created, updated, CHAR_LENGTH(html), hash FROM urls WHERE status IS NOT NULL and status != 'wip' ORDER BY updated DESC LIMIT 10;
+
+-- How many URLs per domain
+SELECT domain, COUNT(*) FROM urls GROUP BY domain;
+
+-- How many URLs of each status per domain
+SELECT domain, status, COUNT(*) FROM urls GROUP BY domain, status ORDER BY COUNT(*) DESC LIMIT 30;
+
+-- Finding duplicate pages for a given domain
+SELECT hash, COUNT(*) AS num FROM urls WHERE domain = 'domain.com' AND hash IS NOT NULL GROUP BY hash HAVING num > 1;
+```

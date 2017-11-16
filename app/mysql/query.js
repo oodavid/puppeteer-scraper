@@ -10,14 +10,10 @@ let pool;
 
 
 async function query(sql, values){
-  try {
-    return await Promise.using(getConnection(), function(connection) {
-      return connection
-        .query(sql, values);
-    });
-  } catch(e){
-    console.error(e);
-  }
+  return await Promise.using(getConnection(), function(connection) {
+    return connection
+      .query(sql, values);
+  });
 }
 
 

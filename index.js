@@ -1,19 +1,27 @@
-const messages = require('./app/messages/');
+const hud = require('./app/hud/');
 const args = require('./app/args/');
 const mysql = require('./app/mysql/');
+const term = require('terminal-kit').terminal;
 
 
 (async () => {
-  messages.printIntro();
+  hud.intro();
+  // Connect to MySQL
   await mysql.init();
+  // Get the arguments
   const action = await args.getAction();
-  const domain = await args.getDomain();
-  messages.printMessage('Running scraper with command:', `node index.js --action ${action} --domain ${domain}`);
+  const domainName = await args.getDomain();
+  const numThreads = await args.getThreads();
+  term(`^r❯^: ^+To run this without prompts, use^:\n`);
+  term(`^r❯^: ^-node index.js --action ${action} --domain ${domainName} --threads ${numThreads}^:\n`);
+  // Read the config
+  const domainConfig = require(`./domains/${domainName}/`);
+  // Start the action
   if(action === 'crawl'){
     const crawler = require('./app/crawler/');
-    crawler.start(domain);
+    crawler.start(domainConfig, numThreads);
   } else {
     const parser = require('./app/parser/');
-    parser.start(domain);
+    parser.start(domainConfig, numThreads);
   }
 })();

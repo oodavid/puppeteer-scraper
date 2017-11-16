@@ -3,12 +3,12 @@ module.exports = getAction;
 
 const argv = require('yargs').argv;
 const inquirer = require('inquirer');
+
+
 const actions = {
   'Crawl and Parse': 'crawl',
   'Just Parse': 'parse',
 };
-
-
 let action;
 
 

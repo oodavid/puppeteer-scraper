@@ -6,12 +6,35 @@ When doing "from memory" it really should be "existing promise" for multithreadi
 
 Always use `module.exports`, not `exports`
 
+
+# Northstar - Scrape Checkatrade for Paul!
+
+What remains (15th Nov)
+
+* [x] `updateUrl.js` - 1hr
+* [x] `browserPool.js` review - 2hr
+    * ...conclusion, I don't need my own browserPool, each puppeteer instance has `pages` (ala tabs)
+* [x] MD5 Logic
+* [x] DB - Rename `host` to `domain`
+* [ ] Progress Bar
+    * [x] Update periodically
+    * [ ] Add time estimate
+* [ ] Screenshot
+    * [ ] Upload to S3
+    * [ ] Save to DB
+* [ ] Review `domain settings` files
+* [ ] `hud.message()` should make sure messages are one-line and write excess to a file (like errors)
+    * [ ] consider using a common file for logic
+--
 * [x] `app/mysql/index.js`
     * [x] Pool, Connect, Query
     * [x] Return some mysql interface (3rd party)
     * [ ] BONUS - Dump useful error if we can't connect
 * [ ] `app/crawler/index.js`
     * [ ] `init(browser)`
+* [ ] Send notification (SMS) when complete
+* [ ] Write about URL structure, use this as a reference:
+    * [ ] https://developer.mozilla.org/en-US/docs/Web/API/Location
 * [x] Create a HUD
     * [x] Use https://github.com/cronvel/terminal-kit
     * [x] initialize - reserve space for the hud
@@ -27,14 +50,20 @@ Always use `module.exports`, not `exports`
 * [ ] Consider using `scrapy style pipelines` - https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 
+
 # Reading List
 
 Read these for reference and notes
+
 
 * Turbocharge the data with:
     * https://www.integrationsjs.com/
     * https://open.blockspring.com/browse
     * https://www.blockspring.com/
+    * https://hunter.io/
+* Test sites:
+    * http://webscraper.io/test-sites
+    * http://airbnb.com
 * https://www.google.com/intl/bn/insidesearch/howsearchworks/crawling-indexing.html
 * https://hexfox.com/p/scrapy-vs-beautifulsoup/
 * https://hexfox.com/p/how-to-filter-out-duplicate-urls-from-scrapys-start-urls/

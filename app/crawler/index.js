@@ -1,44 +1,129 @@
 module.exports.start = start;
 
 
-const webgraph = require('../webgraph/');
 const hud = require('../hud/');
+const webgraph = require('../webgraph/');
+const sanitize = require("sanitize-filename");
+const puppeteer = require('puppeteer');
+const md5 = require('md5');
 
 
-async function start(domain){
-  const domainConfig = require(`../../domains/${domain}/`);
-  // Upsert the seed URLs
-  console.log(`upserting ${domainConfig.seedUrls.length} seed URLS`);
-  await webgraph.upsertSeedUrls(domainConfig.domain, domainConfig.seedUrls);
+let domainConfig;
+let browser;
 
-  // ARGS/inquirer for initial # of threads
 
+async function start(myDomainConfig, myNumThreads){
+  domainConfig = myDomainConfig;
   // Title
-  hud.title(`Crawling ^b${domain}^:`);
+  hud.title(`Crawling ^c${domainConfig.domain}^:`);
   // Start keyboard control
-  hud.keyboard.assign('UP', someFunction, 'Increase Threads');
-  hud.keyboard.assign('DOWN', someFunction, 'Increase Threads');
+  hud.keyboard.assign('UP', increaseThreads, 'Increase Threads');
+  hud.keyboard.assign('DOWN', decreaseThreads, 'Decrease Threads');
   hud.keyboard.assign('p', pause, 'Pause');
   hud.keyboard.start();
-
-  // initialise crawlers (see: crawler.js)
-    // get browser
-    // load URL
-    let url = await webgraph.getUncrawledUrl(domainConfig.domain);
-    console.log(url);
-    // parse Links
-    // upsert HTML, status, links
-    // release browser
+  // Update the progress bar
+  updateProgress();
+  // Upsert the seed URLs
+  hud.message(`upserting ${domainConfig.seedUrls.length} seed URLS`);
+  await webgraph.upsertSeedUrls(domainConfig.seedUrls);
+  hud.message(false);
+  // Initialise our browser and start crawling
+  browser = await puppeteer.launch();
+  crawlUrls();
 }
 
 
-function someFunction(){
-  // console.log('someFunction called');
+
+
+
+async function updateProgress(){
+  let progress = await webgraph.getProgress('www.checkatrade.com');
+  hud.progress(progress.crawled, progress.total);
+  setTimeout(updateProgress, 1000);
 }
 
+
+
+
+let running = 0;
+let max = 10;
+
+async function getPage(){
+  if(running < max){
+    running ++;
+    return await browser.newPage();
+  }
+}
+
+async function releasePage(page){
+  if(page){
+    await page.close();
+    running --;
+  }
+}
+
+async function crawlUrls(){
+  const page = await getPage();
+  if(page){
+    const row = await webgraph.getUncrawledUrl(domainConfig.domain);
+    if(row){
+      crawlUrl(page, row);
+      // Recur
+      setTimeout(crawlUrls, 100);
+    } else {
+      releasePage(page);
+    }
+  }
+}
+
+async function crawlUrl(page, row){
+  hud.urlState(row.url, 'Parsing');
+  try {
+    const response = await page.goto(row.url, { waitUntil: 'networkidle' });
+    // Status
+    const status = response.status;
+    // HTML
+    const html = await page.content();
+    // Hash
+    const hash = md5(html);
+    // Links
+    const links = await page.evaluate(function(){
+      // ...this runs in the context of the browser
+      let links = [... document.querySelectorAll('a')];
+      return links.map(function(link){
+        return link.href;
+      });
+    });
+    // Screenshot
+    const filename = sanitize(row.url);
+    await page.screenshot({ path: `${__dirname}/../../images/${filename}.png` });
+    // Store
+    await webgraph.updateUrl(row.id, status, html, hash, links);
+  } catch(e) {
+    // Log errors
+    hud.error(e);
+  } finally {
+    // Always tidy up
+    hud.urlState(row.url, false);
+    await releasePage(page);
+    // Spawn more crawlers
+    crawlUrls();
+  }
+}
+
+
+
+function increaseThreads(){
+  max ++;
+}
+function decreaseThreads(){
+  max --;
+}
 function pause(){
-  keyboard.assign('p', unpause, 'Unpause');
+  hud.keyboard.assign('p', unpause, 'Unpause');
+  hud.message('Paused - threads will spin down');
 }
 function unpause(){
-  keyboard.assign('p', pause, 'Pause');
+  hud.keyboard.assign('p', pause, 'Pause');
+  hud.message('Unpaused - threads will spin up');
 }

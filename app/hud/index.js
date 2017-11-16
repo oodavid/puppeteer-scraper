@@ -1,3 +1,4 @@
+module.exports.intro = require('./intro.js');
 module.exports.initOnce = require('./initOnce.js');
 module.exports.title = require('./title.js');
 module.exports.keyboard = require('./keyboard.js');

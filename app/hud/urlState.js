@@ -19,15 +19,15 @@ function urlState(url, state){
     allUrls[url] = state;
     if(index !== -1){
       visibleUrls[index] = url;
-      let trimmedUrl = url.substring(0, 50); // Max length
+      let trimmedUrl = url.substring(0, 89); // Max length
       let paddedState = (state+'                  ').substr(0, 11); // Fixed length
-      writeLine(index+firstLine, `${paddedState} ${trimmedUrl}`);
+      writeLine(index+firstLine, `^-${paddedState}^: ${trimmedUrl}`);
     }
   } else {
     delete allUrls[url];
     if(index !== -1){
       visibleUrls[index] = null;
-      writeLine(index+firstLine, '^K-------     http://----.--^:');
+      writeLine(index+firstLine, '^--------     http://----.--^:');
     }
   }
   renderTotals();
@@ -46,13 +46,13 @@ function getVisibleIndex(url){
 
 // Render totals
 function renderTotals(){
-  // Total processes
-  const totalProcesses = Object.keys(allUrls).length;
-  writeLine(numLines+firstLine+1, `Processes: ${totalProcesses}`);
-  // Hidden processes
-  const hiddenProcesses = totalProcesses - visibleUrls.filter(Boolean).length;
-  if(hiddenProcesses > 0){
-    writeLine(numLines+firstLine, `^K... ${hiddenProcesses} more processes running^:`);
+  // Total threads
+  const totalThreads = Object.keys(allUrls).length;
+  let message = `^-${totalThreads} threads`;
+  // Hidden threads
+  const hiddenThreads = totalThreads - visibleUrls.filter(Boolean).length;
+  if(hiddenThreads > 0){
+    message += ` (${hiddenThreads} threads are hidden)`;
   }
-  // console.log(visibleUrls);
+  writeLine(numLines+firstLine, message);
 }

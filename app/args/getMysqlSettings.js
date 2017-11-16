@@ -1,10 +1,11 @@
 module.exports = getMysqlSettings;
 
+
 const inquirer = require('inquirer');
 const fs = require('fs');
 const util = require('util');
 const writeFile = util.promisify(fs.writeFile);
-const messages = require('../messages/');
+const term = require('terminal-kit').terminal;
 
 
 const credsFilePath = `${__dirname}/../../creds.json`;
@@ -72,7 +73,7 @@ async function getMysqlSettings(){
     return creds.mysql;
   }
   // Prompt
-  messages.printMessage('Please configure MySQL', '...you only need to do this once :)');
+  term(`^r❯^: ^+Please Configure MySQL^: ^-(you only need to do this once)^:\n`);
   var answers = await inquirer.prompt(prompts)
     .then(function(answers){
       return answers;
@@ -83,7 +84,7 @@ async function getMysqlSettings(){
   Object.assign(creds.mysql, answers);
   // Write the file
   await writeFile(credsFilePath, JSON.stringify(creds, null, 4));
-  messages.printMessage('Saved to creds.json');
+  term(`^r❯^: ^+MySQL settings saved to^: ^ccreds.json^:\n`);
   // Return
   return creds.mysql;
 }

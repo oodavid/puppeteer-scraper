@@ -11,6 +11,7 @@ function printIntro(){
   {| ♥    ♥ |}  | Web Scraper; Crawler and Parser
    |___==___|   |                    oodavid 2017
   /          \\  ·---------------------------- - -
+
 `));
 }
 

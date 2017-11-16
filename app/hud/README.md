@@ -48,7 +48,7 @@ hud.keyboard.start();
 hud.keyboard.assign('p', unpause, 'Unpause');
 
 // line 3 - hud.progress
-hud.progress('Nodes', 1502, 19104);
+hud.progress(1502, 19104);
 
 // lines 5-16 - hud.urlState
 for(var n=1;n<=20;n++){

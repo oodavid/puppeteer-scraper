@@ -1,5 +1,5 @@
 exports.domain = 'www.checkatrade.com';
-exports.getSeedUrls = getSeedUrls;
+exports.seedUrls = getSeedUrls();
 exports.getUrlWeight = getUrlWeight;
 exports.parseForData = parseForData;
 exports.throttle = 0; // MS between requests

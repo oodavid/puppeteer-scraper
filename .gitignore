@@ -4,6 +4,9 @@ creds.json
 # Errors
 error.log
 
+# Backup files
+*.bak
+
 
 
 

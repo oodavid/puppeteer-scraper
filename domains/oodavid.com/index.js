@@ -6,6 +6,11 @@ exports.throttle = 0;
 
 // Return an array of initial Urls to parse
 function getSeedUrls(){
+  var fake = [];
+  for(var n=0; n<200; n++){
+    fake.push(`https://oodavid.com/${n}`);
+  }
+  return fake;
   return [
     'https://oodavid.com',
     'https://oodavid.com/todo/',

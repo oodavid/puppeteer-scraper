@@ -54,5 +54,5 @@ function renderKeys(){
   Object.entries(keys).forEach(function(value){
     commands.push(`[${value[0]}] ${value[1].description}`);
   });
-  writeLine(1, `^K${commands.join(', ')}^:`);
+  writeLine(1, `^-${commands.join(', ')}^:`);
 }
