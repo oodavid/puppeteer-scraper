@@ -7,13 +7,13 @@ const term = require('terminal-kit').terminal;
 
 
 function progress(completed, total){
-  var pctStr = Math.floor((completed / total) * 100);
   // The meter
   var len = 70;
-  var pct = completed / total;
+  var pct = total ? (completed / total) : 0;
   var left = Array(Math.round(len*pct)).join('=');
   var right = Array(1+len-Math.round(len*pct)).join('-');
   // The string
+  var pctStr = Math.floor(pct * 100);
   var str = `Progress [^g${left}^:^-${right}^:] ${pctStr}% [^g${completed.toLocaleString()}^: / ${total.toLocaleString()}]`;
   // Output
   initOnce();

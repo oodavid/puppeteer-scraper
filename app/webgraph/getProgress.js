@@ -11,7 +11,7 @@ SELECT COUNT(*) as crawled FROM urls WHERE domain = ? AND status IS NOT NULL AND
 `;
   const values = [ domain, domain ];
   let rows = await mysql.query(sql, values);
-  if(rows && rows[0] && rows[1]){
+  if(rows && rows[0] && rows[0][0] && rows[1] && rows[1][0]){
     return {
       total: rows[0][0].total,
       crawled: rows[1][0].crawled,

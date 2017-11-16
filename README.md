@@ -1,4 +1,8 @@
+# Pup
 
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/46879/32921897-7150d848-cb27-11e7-9a79-cd65b913290b.gif" alt="Demonstrating the Puppeteer Scraper">
+</p>
 
 Rough Todo
 
@@ -19,19 +23,28 @@ What remains (15th Nov)
 * [ ] Progress Bar
     * [x] Update periodically
     * [ ] Add time estimate
+* [ ] Add parse logic
+
+--
+
+* [ ] Upon boot
+    * [ ] Extra prompt - reset database?
+    * [ ] Extra prompt - reset wip?
 * [ ] Screenshot
     * [ ] Upload to S3
     * [ ] Save to DB
 * [ ] Review `domain settings` files
 * [ ] `hud.message()` should make sure messages are one-line and write excess to a file (like errors)
     * [ ] consider using a common file for logic
+
 --
+
 * [x] `app/mysql/index.js`
     * [x] Pool, Connect, Query
     * [x] Return some mysql interface (3rd party)
     * [ ] BONUS - Dump useful error if we can't connect
-* [ ] `app/crawler/index.js`
-    * [ ] `init(browser)`
+* [x] `app/crawler/index.js`
+    * [x] `init(browser)`
 * [ ] Send notification (SMS) when complete
 * [ ] Write about URL structure, use this as a reference:
     * [ ] https://developer.mozilla.org/en-US/docs/Web/API/Location
@@ -44,7 +57,7 @@ What remains (15th Nov)
     * [x] urlState - show the running threads (might rename)
     * [x] message - render short message on HUD
     * [x] error - for handling errors - write to file, render short message on HUD
-* [ ] Hash MD5 logic
+* [x] Hash MD5 logic
     * [ ] BONUS - Consider adding this to the domain settings (it may want to exclude non-content html)
 * [ ] Bonus - Create an executable - https://github.com/zeit/pkg
 * [ ] Consider using `scrapy style pipelines` - https://doc.scrapy.org/en/latest/topics/item-pipeline.html
@@ -56,6 +69,7 @@ What remains (15th Nov)
 Read these for reference and notes
 
 
+* https://www.quora.com/What-are-examples-of-how-real-businesses-use-web-scraping-Are-there-any-types-of-businesses-which-use-this-more-than-others
 * Turbocharge the data with:
     * https://www.integrationsjs.com/
     * https://open.blockspring.com/browse
