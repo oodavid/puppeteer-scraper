@@ -29,6 +29,7 @@
     "inquirer-autocomplete-prompt": "^0.11.1",
     "keypress": "^0.2.1",
     "md5": "^2.2.1",
+    "moment": "^2.19.2",
     "nano": "^6.4.2",
     "node-couchdb": "^1.2.0",
     "promise-mysql": "^3.1.3",

@@ -20,10 +20,13 @@ What remains (15th Nov)
     * ...conclusion, I don't need my own browserPool, each puppeteer instance has `pages` (ala tabs)
 * [x] MD5 Logic
 * [x] DB - Rename `host` to `domain`
-* [ ] Progress Bar
+* [x] Progress Bar
     * [x] Update periodically
-    * [ ] Add time estimate
-* [ ] Add parse logic
+    * [x] Add time estimate
+* [ ] Ignore #hashes in URLs
+* [ ] Implement parsing
+    * [ ] Database structure (Mongo, or MySQL)
+    * [ ] Logic
 
 --
 

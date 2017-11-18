@@ -5,7 +5,7 @@ const writeLine = require('./writeLine.js');
 const term = require('terminal-kit').terminal;
 
 
-let firstLine = 5;
+let firstLine = 6;
 let numLines = 10;
 
 
