@@ -11,7 +11,7 @@ When doing "from memory" it really should be "existing promise" for multithreadi
 Always use `module.exports`, not `exports`
 
 
-# Northstar - Scrape Checkatrade for Paul!
+# Northstar - Scrape for Paul!
 
 What remains (15th Nov)
 
@@ -23,7 +23,8 @@ What remains (15th Nov)
 * [x] Progress Bar
     * [x] Update periodically
     * [x] Add time estimate
-* [ ] Ignore #hashes in URLs
+* [x] Ignore #hashes in URLs
+* [ ] Ugh, switch back to MongoDB, MySQL is irking me
 * [ ] Implement parsing
     * [ ] Database structure (Mongo, or MySQL)
     * [ ] Logic

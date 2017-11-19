@@ -14,25 +14,25 @@ const allPrompts = [
     type: 'input',
     name: 'host',
     message: 'Enter host',
-    default: 'localhost'
+    default: 'localhost',
   },
   {
     type: 'input',
     name: 'user',
     message: 'Enter user',
-    default: 'charlotte'
+    default: 'charlotte',
   },
   {
     type: 'password',
     name: 'password',
     message: 'Enter password',
-    default: 'Wilbur'
+    default: 'Wilbur',
   },
   {
     type: 'input',
     name: 'database',
     message: 'Enter database',
-    default: 'scraper'
+    default: 'scraper',
   },
   {
     type: 'input',
@@ -45,8 +45,8 @@ const allPrompts = [
     validate: function(value){
       var isValid = (value > 0 && value === parseInt(value, 10));
       return isValid || "Please enter an integer";
-    }
-  }
+    },
+  },
 ];
 
 

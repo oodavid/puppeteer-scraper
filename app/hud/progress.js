@@ -3,7 +3,6 @@ module.exports = progress;
 
 const numLines = require('./numLines.js');
 const initOnce = require('./initOnce.js');
-const err = require('./error.js');
 const term = require('terminal-kit').terminal;
 const moment = require('moment');
 

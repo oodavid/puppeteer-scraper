@@ -66,4 +66,7 @@ SELECT domain, status, COUNT(*) FROM urls GROUP BY domain, status ORDER BY COUNT
 
 -- Finding duplicate pages for a given domain
 SELECT hash, COUNT(*) AS num FROM urls WHERE domain = 'domain.com' AND hash IS NOT NULL GROUP BY hash HAVING num > 1;
+
+-- Reset WIP urls
+UPDATE urls SET status = NULL WHERE status = 'wip';
 ```
