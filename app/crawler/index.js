@@ -3,7 +3,7 @@ module.exports.start = start;
 
 const hud = require('../hud/');
 const webgraph = require('../webgraph/');
-// const sanitize = require("sanitize-filename");
+const sanitize = require("sanitize-filename");
 const puppeteer = require('puppeteer');
 const md5 = require('md5');
 
@@ -95,8 +95,8 @@ async function crawlUrl(page, row){
       });
     });
     // Screenshot
-    // const filename = sanitize(row.url);
-    // await page.screenshot({ path: `${__dirname}/../../images/${filename}.png` });
+    const filename = sanitize(row.url);
+    await page.screenshot({ path: `${__dirname}/../../images/${filename}.png` });
     // Store
     await webgraph.updateUrl(row.id, status, html, hash, links);
   } catch(e) {
