@@ -24,7 +24,10 @@ What remains (15th Nov)
     * [x] Update periodically
     * [x] Add time estimate
 * [x] Ignore #hashes in URLs
-* [ ] Ugh, switch back to MongoDB, MySQL is irking me
+* [ ] Switch back to MongoDB, MySQL is irking me
+    * [x] Args + Connect
+    * [x] Setup Script
+    * [ ] Reimplement webgraph logic
 * [ ] Implement parsing
     * [ ] Database structure (Mongo, or MySQL)
     * [ ] Logic
