@@ -101,6 +101,7 @@ Other course ideas
 * DropKick (Chrome extension)
 * Gulp Build System
 * Exercise App
+* Inverse Kinematics (Pure JS and / or React Native)
 
 # A Better Scraper, with Puppeteer
 

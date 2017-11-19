@@ -2,7 +2,7 @@ module.exports.start = start;
 
 
 const hud = require('../hud/');
-const webgraph = require('../webgraph/');
+const datastore = require('../mongo/');
 const sanitize = require("sanitize-filename");
 const puppeteer = require('puppeteer');
 const md5 = require('md5');
@@ -25,7 +25,7 @@ async function start(myDomainConfig, myNumThreads){
   updateProgress();
   // Upsert the seed URLs
   hud.message(`upserting ${domainConfig.seedUrls.length} seed URLS`);
-  await webgraph.upsertSeedUrls(domainConfig.seedUrls);
+  await datastore.upsertSeedUrls(domainConfig.seedUrls);
   hud.message(false);
   // Initialise our browser and start crawling
   browser = await puppeteer.launch();
@@ -37,7 +37,7 @@ async function start(myDomainConfig, myNumThreads){
 
 
 async function updateProgress(){
-  let progress = await webgraph.getProgress(domainConfig.domain);
+  let progress = await datastore.getProgress(domainConfig.domain);
   hud.progress(progress.crawled, progress.total);
   setTimeout(updateProgress, 1000);
 }
@@ -65,7 +65,7 @@ async function releasePage(page){
 async function crawlUrls(){
   const page = await getPage();
   if(page){
-    const row = await webgraph.getUncrawledUrl(domainConfig.domain);
+    const row = await datastore.getUncrawledUrl(domainConfig.domain);
     if(row){
       crawlUrl(page, row);
       // Recur
@@ -98,7 +98,7 @@ async function crawlUrl(page, row){
     const filename = sanitize(row.url);
     await page.screenshot({ path: `${__dirname}/../../images/${filename}.png` });
     // Store
-    await webgraph.updateUrl(row.id, status, html, hash, links);
+    await datastore.updateUrl(row.id, status, html, hash, links);
   } catch(e) {
     // Log errors
     hud.error(e);

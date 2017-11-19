@@ -1,3 +1,8 @@
-exports.init = require('./init.js');
 exports.query = require('./query.js');
-exports.escape = require('promise-mysql').escape;
+exports.init = require('./init.js');
+
+
+exports.upsertSeedUrls = require('./webgraph/upsertSeedUrls.js');
+exports.getUncrawledUrl = require('./webgraph/getUncrawledUrl.js');
+exports.updateUrl = require('./webgraph/updateUrl.js');
+exports.getProgress = require('./webgraph/getProgress.js');

@@ -1,13 +1,13 @@
 const hud = require('./app/hud/');
 const args = require('./app/args/');
-const mysql = require('./app/mysql/');
+const datastore = require('./app/mongo/');
 const term = require('terminal-kit').terminal;
 
 
 (async () => {
   hud.intro();
   // Connect to MySQL
-  await mysql.init();
+  await datastore.init();
   // Get the arguments
   const action = await args.getAction();
   const domainName = await args.getDomain();

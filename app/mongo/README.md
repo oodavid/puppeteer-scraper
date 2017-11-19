@@ -1,6 +1,6 @@
 # MongoDB
 
-Don't bother setting this up locally, a managed service is simpler and more useful.
+Don't run MongoDB locally, a decentralised database is more useful; a managed service is often easier.
 
 There is a free tier on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) that gives you:
 
@@ -10,6 +10,20 @@ There is a free tier on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) tha
 * Networking Performance: Low
 * Max Databases: 100
 * Max Collections: 500
+
+# Setup
+
+Once you've created a remote database (above), run this command to set up your collection indexes.
+
+```shell
+node app/mongo/setup/index.js
+```
+
+You can update this script to add more collections and indexes, as you see fit.
+
+The script will prompt you for your [MongoDB Connection String](https://docs.mongodb.com/manual/reference/connection-string/), this will be saved to `creds.json`, and is in the format:
+
+`mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]`
 
 ## Webgraph Data Structure
 

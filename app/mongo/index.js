@@ -1,16 +1,8 @@
-const args = require('../args/index.js');
-const MongoClient = require('mongodb').MongoClient;
+exports.getDb = require('./getDb.js');
+exports.init = require('./init.js');
 
 
-(async () => {
-  try {
-    const connectionString = await args.getMongoConnectionString();
-    const db = await MongoClient.connect(connectionString);
-    console.log("Connected successfully to server");
-  } catch (e){
-    console.log(e);
-  } finally {
-    console.log('tidy up');
-  }
-
-})();
+exports.upsertSeedUrls = require('./webgraph/upsertSeedUrls.js');
+exports.getUncrawledUrl = require('./webgraph/getUncrawledUrl.js');
+exports.updateUrl = require('./webgraph/updateUrl.js');
+exports.getProgress = require('./webgraph/getProgress.js');
