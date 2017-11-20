@@ -6,7 +6,8 @@ const mysql = require('../mysql/');
 const parseUrl = require('url').parse;
 
 
-async function updateUrl(id, status, html, hash, links){
+// Where urlObject is an object of format { id, status, html, hash, links }
+async function updateUrl(urlObject){
   // Build up our SQL statement and values
   let sql = '';
   let values = [];
@@ -14,16 +15,16 @@ async function updateUrl(id, status, html, hash, links){
   try {
     // Update the URL itself
     sql += 'UPDATE urls SET status = ?, html = ?, hash = ?, updated = NOW() WHERE id = ?;';
-    values.push(... [ status, html, hash, id ]);
+    values.push(... [ urlObject.status, urlObject.html, urlObject.hash, urlObject.id ]);
     // Create the links
-    links = parseLinks(links);
+    const links = parseLinks(urlObject.links);
     links.forEach(function(link){
       const domain = parseUrl(link).host;
       if(domain){
         sql += 'INSERT INTO urls (domain, url) VALUES (?, ?) ON DUPLICATE KEY UPDATE id=id;';
         values.push(... [ domain, link ]);
         sql += 'INSERT IGNORE INTO links (from_url_id, to_url_id) VALUES (?, (SELECT id FROM urls WHERE url=? LIMIT 1));';
-        values.push(... [ id, link ]);
+        values.push(... [ urlObject.id, link ]);
       }
     });
     await mysql.query(sql, values);
@@ -35,7 +36,7 @@ async function updateUrl(id, status, html, hash, links){
 }
 
 
-function parseLinks(links){ 
+function parseLinks(links){
   // Only HTTP (and HTTPS)
   links = links.filter(function(link){
     return link.indexOf('http') === 0;
@@ -43,7 +44,7 @@ function parseLinks(links){
   // Strip hashes
   links.forEach(function(value, index, arr){
     arr[index] = value.split('#')[0];
-  }); 
+  });
   // Make sure the links are unique
   links = [... new Set([... links])];
   return links;

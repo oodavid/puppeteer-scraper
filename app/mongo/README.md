@@ -2,14 +2,14 @@
 
 Don't run MongoDB locally, a decentralised database is more useful; a managed service is often easier.
 
-There is a free tier on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) that gives you:
+There are services available with a free tier:
 
-* Shared RAM
-* 512MB Storage
-* Max Connections: 100
-* Networking Performance: Low
-* Max Databases: 100
-* Max Collections: 500
+* [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) - Free tier
+* [MLab](https://mlab.com/) - Sandbox
+
+Each come with a their own limitations, usually around the amount of data that can be stored, number of connections and replication.
+
+Regardless, they're enough for testing and development.
 
 # Setup
 

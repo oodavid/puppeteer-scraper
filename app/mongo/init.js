@@ -7,7 +7,7 @@ const term = require('terminal-kit').terminal;
 
 async function init(){
   try {
-    const db = getDb();
+    const db = await getDb();
     term(`^r❯^: Connected to MongoDB^:\n`);
   } catch (e){
     console.log(e);

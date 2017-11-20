@@ -8,7 +8,7 @@ const moment = require('moment');
 
 
 let session;
-let maxHistoryMs = 5*60*1000; // 5 minutes
+let maxHistoryMs = 1*60*1000; // 1 minute
 
 
 function progress(completed, total){
@@ -24,6 +24,7 @@ function calculateSessionTotals(completed, total){
   let props = { completed, total, timestamp: now };
   if(!session){
     session = {
+      started: now,
       initial: props,
       history: [],
     };

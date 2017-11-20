@@ -6,7 +6,7 @@ exports.throttle = 0;
 
 // Return an array of initial Urls to parse
 function getSeedUrls(){
-  return [ 'http://oodavid.com/' ];
+  return [ 'https://oodavid.com/' ];
 };
 
 // Return the "weight" of an URL from 0-1.

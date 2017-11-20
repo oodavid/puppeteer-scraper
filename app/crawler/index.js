@@ -25,7 +25,7 @@ async function start(myDomainConfig, myNumThreads){
   updateProgress();
   // Upsert the seed URLs
   hud.message(`upserting ${domainConfig.seedUrls.length} seed URLS`);
-  await datastore.upsertSeedUrls(domainConfig.seedUrls);
+  await datastore.upsertNewUrls(domainConfig.seedUrls);
   hud.message(false);
   // Initialise our browser and start crawling
   browser = await puppeteer.launch();
@@ -37,9 +37,14 @@ async function start(myDomainConfig, myNumThreads){
 
 
 async function updateProgress(){
-  let progress = await datastore.getProgress(domainConfig.domain);
-  hud.progress(progress.crawled, progress.total);
-  setTimeout(updateProgress, 1000);
+  try {
+    let progress = await datastore.getProgress(domainConfig.domain);
+    hud.progress(progress.crawled, progress.total);
+  } catch (e) {
+    hud.error(e);
+  } finally {
+    setTimeout(updateProgress, 1000);
+  }
 }
 
 
@@ -65,9 +70,9 @@ async function releasePage(page){
 async function crawlUrls(){
   const page = await getPage();
   if(page){
-    const row = await datastore.getUncrawledUrl(domainConfig.domain);
-    if(row){
-      crawlUrl(page, row);
+    const urlObject = await datastore.getUncrawledUrl(domainConfig.domain);
+    if(urlObject){
+      crawlUrl(page, urlObject);
       // Recur
       setTimeout(crawlUrls, 100);
     } else {
@@ -76,18 +81,18 @@ async function crawlUrls(){
   }
 }
 
-async function crawlUrl(page, row){
-  hud.urlState(row.url, 'Parsing');
+async function crawlUrl(page, urlObject){
+  hud.urlState(urlObject.url, 'Parsing');
   try {
-    const response = await page.goto(row.url, { waitUntil: 'networkidle' });
+    const response = await page.goto(urlObject.url, { waitUntil: 'networkidle' });
     // Status
-    const status = response.status;
+    urlObject.status = response.status;
     // HTML
-    const html = await page.content();
+    urlObject.html = await page.content();
     // Hash
-    const hash = md5(html);
+    urlObject.hash = md5(urlObject.html);
     // Links
-    const links = await page.evaluate(function(){
+    urlObject.links = await page.evaluate(function(){
       // ...this runs in the context of the browser
       let links = [... document.querySelectorAll('a')];
       return links.map(function(link){
@@ -95,16 +100,16 @@ async function crawlUrl(page, row){
       });
     });
     // Screenshot
-    const filename = sanitize(row.url);
+    const filename = sanitize(urlObject.url);
     await page.screenshot({ path: `${__dirname}/../../images/${filename}.png` });
     // Store
-    await datastore.updateUrl(row.id, status, html, hash, links);
+    await datastore.updateUrl(urlObject);
   } catch(e) {
     // Log errors
     hud.error(e);
   } finally {
     // Always tidy up
-    hud.urlState(row.url, false);
+    hud.urlState(urlObject.url, false);
     await releasePage(page);
     // Spawn more crawlers
     crawlUrls();

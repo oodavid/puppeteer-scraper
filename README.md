@@ -24,10 +24,14 @@ What remains (15th Nov)
     * [x] Update periodically
     * [x] Add time estimate
 * [x] Ignore #hashes in URLs
-* [ ] Switch back to MongoDB, MySQL is irking me
+* [x] Switch back to MongoDB, MySQL is irking me
     * [x] Args + Connect
     * [x] Setup Script
-    * [ ] Reimplement webgraph logic
+    * [x] Reimplement webgraph logic
+* [ ] `--threads` is being ignored, update this
+* [ ] `hud.progress` show start time / duration
+* [ ] `hud.message()` should make sure messages are one-line and write excess to a file (like errors)
+    * [ ] consider using a common file for logic
 * [ ] Implement parsing
     * [ ] Database structure (Mongo, or MySQL)
     * [ ] Logic
@@ -41,8 +45,6 @@ What remains (15th Nov)
     * [ ] Upload to S3
     * [ ] Save to DB
 * [ ] Review `domain settings` files
-* [ ] `hud.message()` should make sure messages are one-line and write excess to a file (like errors)
-    * [ ] consider using a common file for logic
 
 --
 
