@@ -10,10 +10,13 @@ const md5 = require('md5');
 
 let domainConfig;
 let browser;
+let runningThreads = 0;
+let maxThreads = 10;
 
 
 async function start(myDomainConfig, myNumThreads){
   domainConfig = myDomainConfig;
+  maxThreads = myNumThreads;
   // Title
   hud.title(`Crawling ^c${domainConfig.domain}^:`);
   // Start keyboard control
@@ -50,12 +53,10 @@ async function updateProgress(){
 
 
 
-let running = 0;
-let max = 10;
 
 async function getPage(){
-  if(running < max){
-    running ++;
+  if(runningThreads < maxThreads){
+    runningThreads ++;
     return await browser.newPage();
   }
 }
@@ -63,7 +64,7 @@ async function getPage(){
 async function releasePage(page){
   if(page){
     await page.close();
-    running --;
+    runningThreads --;
   }
 }
 
@@ -118,17 +119,24 @@ async function crawlUrl(page, urlObject){
 
 
 
+let pausedThreads;
 function increaseThreads(){
-  max ++;
+  maxThreads ++;
+  hud.message(`Max: ${maxThreads} threads`);
 }
 function decreaseThreads(){
-  max --;
+  maxThreads --;
+  hud.message(`Max: ${maxThreads} threads`);
 }
 function pause(){
+  pausedThreads = maxThreads;
+  maxThreads = 0;
   hud.keyboard.assign('p', unpause, 'Unpause');
-  hud.message('Paused - threads will spin down');
+  hud.message('Paused. Wait for threads to complete');
 }
 function unpause(){
+  maxThreads = pausedThreads;
+  crawlUrls();
   hud.keyboard.assign('p', pause, 'Pause');
-  hud.message('Unpaused - threads will spin up');
+  hud.message(`Unpaused. Max: ${maxThreads} threads`);
 }

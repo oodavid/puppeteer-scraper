@@ -28,13 +28,23 @@ What remains (15th Nov)
     * [x] Args + Connect
     * [x] Setup Script
     * [x] Reimplement webgraph logic
-* [ ] `--threads` is being ignored, update this
+* [x] Thread Management
+    * [x] Obey `--threads` argument
+    * [x] Pause / Unpause
+    * [x] Increase / Decrease Threads
 * [ ] `hud.progress` show start time / duration
 * [ ] `hud.message()` should make sure messages are one-line and write excess to a file (like errors)
     * [ ] consider using a common file for logic
 * [ ] Implement parsing
     * [ ] Database structure (Mongo, or MySQL)
     * [ ] Logic
+
+# Parsing tasks
+
+* [ ] Parse companies house / duedil for business data
+* [ ] Get a list of competitors, with locations
+* [ ] Compute complementary businesses (by location)
+* [ ] Build an drip campaign
 
 --
 
