@@ -79,6 +79,7 @@ function showProgressMeter(){
 
 // Completed: 1,234, Velocity: 100 / hour, ETA: 2h 40
 function showVelocityAndEta(){
+  const started = moment(session.started).format('D MMM HH:mm');
   const completed = session.newlyCompleted.toLocaleString();
   var ttc = '---';
   if(session.eta){
@@ -88,7 +89,7 @@ function showVelocityAndEta(){
   if(session.velocity){
     rate = Math.round((60*60*1000)/session.velocity).toLocaleString() + ' / hour';
   }
-  var str = `Completed: ${completed}, Rate: ${rate}, TTC: ${ttc}`;
+  var str = `^-Started: ^:${started} ^-Completed: ^:${completed} ^-Rate: ^:${rate} ^-TTC: ^:${ttc}`;
   // Output
   term.restoreCursor();
   term.column(0).move(0, 4-numLines).eraseLine();
