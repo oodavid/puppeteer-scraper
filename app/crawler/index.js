@@ -29,7 +29,6 @@ async function start(myDomainConfig, myNumThreads){
   // Upsert the seed URLs
   hud.message(`upserting ${domainConfig.seedUrls.length} seed URLS`);
   await datastore.upsertNewUrls(domainConfig.seedUrls);
-  hud.message(false);
   // Initialise our browser and start crawling
   browser = await puppeteer.launch();
   crawlUrls();

@@ -32,17 +32,24 @@ What remains (15th Nov)
     * [x] Obey `--threads` argument
     * [x] Pause / Unpause
     * [x] Increase / Decrease Threads
-* [x] `hud.progress`
-    * [x] Show start time
+* [x] `hud.progress()`
+    * [x] Progress - Show start time
     * [x] Pretty this up a little
-* [ ] `hud.message()` should make sure messages are one-line and write excess to a file (like errors)
-    * [ ] consider using a common file for logic
-* [ ] Implement parsing
+* [x] `hud.message()`
+    * [x] Write to file `messages.log`
+* [x] `hud.writeLine()`
+    * [x] Coerce messages to a single line
+    * [x] Truncate
+* [ ] Per-domain parsing
     * [ ] Database structure (Mongo, or MySQL)
-    * [ ] Logic
+    * [ ] Pipeline style logic (using await / async)
 * [ ] Throw error if we get a duplicate hash
+* [ ] Screenshot
+    * [ ] Upload to S3
+    * [ ] Save to DB
 * [ ] Update the README
     * [ ] Punchy title and intro
+    * [ ] Merge all these todo lists!
     * [ ] Up-to-date GIF
     * [ ] Set the github topics
     * [ ] Link to how-to tutorial
@@ -60,9 +67,6 @@ What remains (15th Nov)
 * [ ] Upon boot
     * [ ] Extra prompt - reset database?
     * [ ] Extra prompt - reset wip?
-* [ ] Screenshot
-    * [ ] Upload to S3
-    * [ ] Save to DB
 * [ ] Review `domain settings` files
 
 --

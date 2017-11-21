@@ -19,9 +19,8 @@ function urlState(url, state){
     allUrls[url] = state;
     if(index !== -1){
       visibleUrls[index] = url;
-      let trimmedUrl = url.substring(0, 89); // Max length
       let paddedState = (state+'                  ').substr(0, 11); // Fixed length
-      writeLine(index+firstLine, `^-${paddedState}^: ${trimmedUrl}`);
+      writeLine(index+firstLine, `^-${paddedState}^: ${url}`);
     }
   } else {
     delete allUrls[url];
