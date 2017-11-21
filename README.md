@@ -40,13 +40,28 @@ What remains (15th Nov)
 * [x] `hud.writeLine()`
     * [x] Coerce messages to a single line
     * [x] Truncate
-* [ ] Per-domain parsing
-    * [ ] Database structure (Mongo, or MySQL)
-    * [ ] Pipeline style logic (using await / async)
-* [ ] Throw error if we get a duplicate hash
-* [ ] Screenshot
-    * [ ] Upload to S3
+* [x] Per-domain parsing
+* [x] URL weighting
+    * [x] During Write
+    * [x] During Read
+* [ ] Add proxy support
+    * https://proxymesh.com/
+    * [ ] Saved to `creds.json` via args
+* [ ] User Agent Randmiser
+* [ ] Apply adblock to strip ads, analytics and social tools
+    * https://github.com/bbondy/abp-filter-parser
+    * https://easylist.to/
+* [ ] Screenshots
+    * [ ] Sits behind a flag (domain settings)
+    * [ ] When disabled, option to block image requests (speed)
+    * [ ] Upload Screenshots to remote
+        * https://www.npmjs.com/package/aws-sdk
     * [ ] Save to DB
+* [ ] Throw an error if we get a duplicate hash
+* [ ] Draft a MapReduce function to show how to combine data objects from multiple sources
+    * See: https://docs.mongodb.com/manual/aggregation/
+    * Just for demonstration (`README.md`), this doesn't really need coding
+    * Example: `db.urls.find({ 'data.id': 'JamesPond' }, { url: 1, domain: 1, data: 1 }).pretty()`
 * [ ] Update the README
     * [ ] Punchy title and intro
     * [ ] Merge all these todo lists!
@@ -114,19 +129,6 @@ Read these for reference and notes
 * https://hexfox.com/p/scrapy-vs-beautifulsoup/
 * https://hexfox.com/p/how-to-filter-out-duplicate-urls-from-scrapys-start-urls/
 * https://stackoverflow.com/a/9736414/1122851 - database pools (and pools in general)
-
-Other course ideas
-
-* Massively Multiplayer Online Scrabble / Upwords
-* Games > Grid
-* Learn CSS by creating a framework
-* SASS
-* MongoDb
-* CouchDb
-* DropKick (Chrome extension)
-* Gulp Build System
-* Exercise App
-* Inverse Kinematics (Pure JS and / or React Native)
 
 # A Better Scraper, with Puppeteer
 

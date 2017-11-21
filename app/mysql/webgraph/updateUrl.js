@@ -7,7 +7,7 @@ const parseUrl = require('url').parse;
 
 
 // Where urlObject is an object of format { id, status, html, hash, links }
-async function updateUrl(urlObject){
+async function updateUrl(domainConfig, urlObject){
   // Build up our SQL statement and values
   let sql = '';
   let values = [];

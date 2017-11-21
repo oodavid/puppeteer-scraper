@@ -28,7 +28,7 @@ async function start(myDomainConfig, myNumThreads){
   updateProgress();
   // Upsert the seed URLs
   hud.message(`upserting ${domainConfig.seedUrls.length} seed URLS`);
-  await datastore.upsertNewUrls(domainConfig.seedUrls);
+  await datastore.upsertNewUrls(domainConfig, domainConfig.seedUrls);
   // Initialise our browser and start crawling
   browser = await puppeteer.launch();
   crawlUrls();
@@ -84,26 +84,36 @@ async function crawlUrls(){
 async function crawlUrl(page, urlObject){
   hud.urlState(urlObject.url, 'Parsing');
   try {
+    /* Blocking images
+    await page.setRequestInterception(true);
+    page.on('request', request => {
+      if (request.resourceType === 'image')
+        request.abort();
+      else
+        request.continue();
+    });
+    */
     const response = await page.goto(urlObject.url, { waitUntil: 'networkidle' });
-    // Status
+    const html = await page.content();
+    // Webgraph Basics
     urlObject.status = response.status;
-    // HTML
-    urlObject.html = await page.content();
-    // Hash
-    urlObject.hash = md5(urlObject.html);
-    // Links
-    urlObject.links = await page.evaluate(function(){
-      // ...this runs in the context of the browser
+    urlObject.hash = md5(html);
+    urlObject.links = await page.evaluate(function(){ // ...this runs in the context of the browser
       let links = [... document.querySelectorAll('a')];
       return links.map(function(link){
         return link.href;
       });
     });
     // Screenshot
-    const filename = sanitize(urlObject.url);
-    await page.screenshot({ path: `${__dirname}/../../images/${filename}.png` });
-    // Store
-    await datastore.updateUrl(urlObject);
+    // const filename = sanitize(urlObject.url);
+    // await page.screenshot({ path: `${__dirname}/../../images/${filename}.png` });
+    // Parsing (domain specific)
+    if(typeof domainConfig.parse === 'function'){
+      await injectJQuery(page);
+      urlObject.data = await domainConfig.parse(page, urlObject);
+    }
+    // Save
+    await datastore.updateUrl(domainConfig, urlObject);
   } catch(e) {
     // Log errors
     hud.error(e);
@@ -118,9 +128,31 @@ async function crawlUrl(page, urlObject){
 
 
 
+
+async function injectJQuery(page){
+  await page.evaluate(() => {
+    var jq = document.createElement("script")
+    jq.setAttribute('type','text/javascript');
+    jq.src = "https://code.jquery.com/jquery-3.2.1.min.js"
+    return new Promise((resolve) => {
+      jq.addEventListener("load", ()=> {
+        resolve();
+      });
+      document.getElementsByTagName("head")[0].appendChild(jq);
+    });
+  })
+  const watchDog = page.waitForFunction('window.jQuery !== undefined');
+  await watchDog;
+}
+
+
+
+
+
 let pausedThreads;
 function increaseThreads(){
   maxThreads ++;
+  crawlUrls();
   hud.message(`Max: ${maxThreads} threads`);
 }
 function decreaseThreads(){

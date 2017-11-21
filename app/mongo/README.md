@@ -52,6 +52,26 @@ Each document will have the basic structure below, with indexes on:
 }
 ```
 
+# Handy Queries
+
+```js
+// Total number of URLs in the system (for any domain)
+db.urls.find().count();
+
+// Get the highest priority url to parse
+db.urls.find({ status: { $exists: false }, domain: 'www.checkatrade.com' }).sort({ weight: -1 }).limit(1).pretty();
+
+// Get the number of processed URLs
+db.urls.find({ status: { $exists: true, $ne: 'wip' }, domain: 'www.checkatrade.com' }).count();
+
+// Get all URLs with data matching JamesPond
+db.urls.find({ 'data.id': 'JamesPond' }, { url: 1, domain: 1, data: 1 }).pretty()
+
+// Count the URLs of each state
+//  https://docs.mongodb.com/manual/reference/operator/aggregation/sum/#grp._S_sum
+db.urls.aggregate([{"$group": {"_id": "$status", "count": {"$sum":1} }}])
+```
+
 ### References
 
 * https://docs.mongodb.com/v2.8/tutorial/create-an-index/

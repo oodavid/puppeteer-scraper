@@ -6,8 +6,8 @@ const upsertNewUrls = require('./upsertNewUrls.js');
 const hud = require('../../hud/');
 
 
-// Where urlObject is an object of format { _id, status, html, hash, links }
-async function updateUrl(urlObject){
+// Where urlObject is an object of format { _id, url, domain, status, html, hash, links, data }
+async function updateUrl(domainConfig, urlObject){
   try {
     const db = await getDb();
     // Update the object
@@ -16,7 +16,7 @@ async function updateUrl(urlObject){
     const update = { $set: urlObject };
     await db.collection('urls').updateOne(filter, update);
     // Upsert the links
-    upsertNewUrls(urlObject.links);
+    await upsertNewUrls(domainConfig, urlObject.links);
   } catch (e){
     hud.error(e);
   }

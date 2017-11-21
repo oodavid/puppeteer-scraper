@@ -5,7 +5,7 @@ const mysql = require('../mysql/');
 const parseUrl = require('url').parse;
 
 
-async function upsertNewUrls(seedUrls){
+async function upsertNewUrls(domainConfig, seedUrls){
   // The `query` module needs `values` in a specific format to trigger a bulk insert, see: https://stackoverflow.com/a/14259347/1122851
   let values = [
     seedUrls.map(function(url){
