@@ -38,6 +38,6 @@
     "puppeteer": "^0.11.0",
     "sanitize-filename": "^1.6.1",
     "terminal-kit": "^1.14.1",
-    "yargs": "^10.0.3"
+    "yargs": "^16.0.0"
   }
 }
